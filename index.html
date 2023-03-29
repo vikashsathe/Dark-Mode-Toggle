@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark-Mode-Toggle</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: .4s;
+        }
+        .input{ 
+            visibility: hidden;
+        }
+        .label {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background-color: lightgray;
+            border-radius: 20px;
+        }
+       .circle{
+            width: 34px;
+            background-color: white;
+            cursor: pointer;
+            height: 34px;
+            border-radius: 50%;
+            top: 3px;
+            position: absolute;
+        animation: toggleoff .5s linear forwards;
+        }
+        .input:checked + .label{
+            background-color: white;
+        }
+        .input:checked + .label .circle{
+            animation: toggleon .4s
+            linear forwards;
+            background-color: black;
+        }
+
+        @keyframes toggleon {
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(40px);
+            }
+        }
+        @keyframes toggleoff {
+            0%{
+                transform: translateX(40px);
+            }
+            100%{
+                transform: translateX(0);
+            }
+        }
+        h1{
+            color: white;
+            margin: auto;
+            margin-top: 62%;
+            letter-spacing: 2px;
+        }
+        
+    </style>
+    </head>
+    <body>
+    <input type="checkbox" id="dark-mode" class="input">
+    <label for="dark-mode" class="label">
+        <div class="circle">
+            
+        </div>
+    </label>
+    <h1> Hello Everyone !  </h1>
+</body>
+<script>
+
+    const inputE1 = document.querySelector(".input");
+    const bodyE1 = document.querySelector("body");
+
+    inputE1.checked = localStorage.getItem("mode");
+
+    updateBody();
+
+    function updateBody(){
+        if(inputE1.checked){
+            bodyE1.style.background = "black";
+            
+        }
+        else{
+            bodyE1.style.background = "white";
+        }
+    }
+    inputE1.addEventListener("input", ()=>{
+        updateBody();
+        updateLocalStorage()
+    })
+
+
+    function updateLocalStorage(){localStorage.setItem("mode", JSON.stringify(inputE1.checked)
+    );
+}
+
+</script>
+</html>
